@@ -21,6 +21,7 @@ const botonCargarDatos = document.querySelector(".cargarDatos")
 const botonAgregarCurso = document.querySelector(".agregarCurso");
 const botonEliminarCurso =document.querySelector(".eliminarCurso");
 const botonModificarCurso = document.querySelector(".modificarCurso");
+const botonFiltrarCurso = document.querySelector(".filtrarCurso");
 
 const curso1 = new Curso("Python", "En este curso podras aprender las funciones basicas de progamacion en Python", "Programacion", 5,
 ["Algoritmos", "Fundamentos de Python", "Condicionales", "Estructuras repetitivas", "Programacion orientada a objetos"]);
@@ -256,6 +257,32 @@ const modificarCurso = ()=>{
 
 }
 
+const filtrarPorNombre = () =>{
+    while(true){
+        var nombreBuscar = prompt("Ingrese el nombre del curso que desea buscar:");
+        if (validarString.test(nombreBuscar)){
+            break;
+        } else{
+            alert("Nombre invalido");
+        }
+    }
+    let elementoEncontrado=false;
+
+    for (let i=0; i<cursosMostrar.length; i++){
+        if(cursosMostrar[i].nombre.toUpperCase()==nombreBuscar.toUpperCase()){
+            elementoEncontrado=true
+            let cursoFiltrado = [];
+            cursoFiltrado.push(cursosMostrar[i]);
+            alert("Curso encontrado correctamente")
+            mostrarCursos(cursoFiltrado);
+        }
+    }
+
+    if (!elementoEncontrado){
+        alert(`No se encontro un curso con el nombre ${nombreBuscar}`);
+    }
+}
+
 
 botonMostrarCursos.addEventListener("click", async ()=>{
     if (!cursosCargados){
@@ -322,5 +349,16 @@ botonModificarCurso.addEventListener("click", async ()=>{
     mostrarCursos(cursosMostrar);
 });
 
+botonFiltrarCurso.addEventListener("click", async ()=>{
+    if (!cursosCargados){
+        cursosIniciales = await cargarDatos();
+        for (curso of cursosIniciales){
+            cursosMostrar.push(curso);
+        }
+        cursosCargados=true;
+        alert("Cursos cargados correctamente");
+    }
+    filtrarPorNombre();
+});
 
 
