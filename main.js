@@ -283,6 +283,9 @@ const filtrarPorNombre = () =>{
     }
 }
 
+const guardarCursosLocalStorage = () =>{
+    localStorage.setItem("Cursos", JSON.stringify(cursosMostrar));
+}
 
 botonMostrarCursos.addEventListener("click", async ()=>{
     if (!cursosCargados){
@@ -304,6 +307,7 @@ botonCargarDatos.addEventListener("click", async ()=>{
         }
         cursosCargados=true;
         alert("Cursos cargados correctamente");
+        guardarCursosLocalStorage();
     } else{
         alert("Los cursos ya se encuentran cargados");
     }
@@ -321,6 +325,7 @@ botonAgregarCurso.addEventListener("click", async ()=>{
     agregarCurso();
     alert("Curso agregado correctamente");
     mostrarCursos(cursosMostrar);
+    guardarCursosLocalStorage();
 });
 
 botonEliminarCurso.addEventListener("click", async ()=>{
@@ -334,6 +339,7 @@ botonEliminarCurso.addEventListener("click", async ()=>{
     }
     eliminarCurso();
     mostrarCursos(cursosMostrar);
+    guardarCursosLocalStorage();
 });
 
 botonModificarCurso.addEventListener("click", async ()=>{
@@ -347,6 +353,7 @@ botonModificarCurso.addEventListener("click", async ()=>{
     }
     modificarCurso();
     mostrarCursos(cursosMostrar);
+    guardarCursosLocalStorage();
 });
 
 botonFiltrarCurso.addEventListener("click", async ()=>{
